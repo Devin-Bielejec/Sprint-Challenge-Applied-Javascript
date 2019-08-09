@@ -46,7 +46,7 @@ A NodeList only has specific properties and method, such as length and forEach. 
 
 5. What is a component?
 
-A component is a block of javascript, function or class, that is like a template for a particular aspect of your website. A component allows the user to input different variables into the component to change something on the website while keeping the rest of it the same. ****BLAH BLAH BLAH ****
+A component is a block of javascript, function or class, that is like a template for a particular aspect of your website. A component allows the user to break up parts of the website into smaller reusable pieces.
 
 ### Git Set up
 

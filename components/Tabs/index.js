@@ -9,6 +9,7 @@ import {createElement} from "../Header/index.js";
 //  The tab component should look like this:
 //    <div class="tab">topic here</div>
 axios.get("https://lambda-times-backend.herokuapp.com/topics").then( response => {
+    createElement("div", "tab", "All", document.querySelector("div.topics"));
     response.data.topics.forEach( topic => {
         createElement("div", "tab", topic, document.querySelector("div.topics"));
     })

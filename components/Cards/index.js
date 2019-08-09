@@ -23,34 +23,43 @@ axios.get("https://lambda-times-backend.herokuapp.com/articles")
 .then( response => {
     const articleData = response.data.articles;
 
-    console.log(articleData);
-
-    const divTabNodeList = document.querySelectorAll("div.tab");
-    console.log(divTabNodeList);
-    divTabNodeList.forEach( tabList => {
-        tabList.addEventListener("click", (event) => {
-            //if cards exist, remove them
-            const cardContainer = document.querySelector("div.cards-container");
-            console.log(cardContainer);
-            if (cardContainer != null) {
-                while (cardContainer.firstChild) {
-                    cardContainer.removeChild(cardContainer.firstChild);
-                }
-            }
-
-            let articleName = event.target.textContent;
-            articleName === "node.js" ? articleName = "node" : false;
-            console.log(`Article Name: ${articleName}`);
-            //There are multiple headlines
-            articleData[articleName].forEach( article => {
-                const divCard = createElement("div", "card", "", document.querySelector(".cards-container"));
-                const divHeadline = createElement("div", "headline", article.headline, divCard);
-                const divAuthor = createElement("div", "author", "", divCard);
-                const divImgContainer = createElement("div", "img-container", "", divAuthor);
-                const img = createElement("img", "", "", divImgContainer);
-                img.src = article.authorPhoto;
-                const span = createElement("span", "", `By ${article.authorName}`, divAuthor);
+    const articleNames = Object.keys(articleData);
+    //make all of the divcards and have them on the container
+    //There are multiple headlines
+    articleNames.forEach( articleName => {
+        articleData[articleName].forEach( article => {
+            const divCard = createElement("div", "card", "", document.querySelector(".cards-container"));
+            divCard.classList.add(`${articleName}`);
+            divCard.style.display = "none";
+            const divHeadline = createElement("div", "headline", article.headline, divCard);
+            const divAuthor = createElement("div", "author", "", divCard);
+            const divImgContainer = createElement("div", "img-container", "", divAuthor);
+            const img = createElement("img", "", "", divImgContainer);
+            img.src = article.authorPhoto;
+            const span = createElement("span", "", `By ${article.authorName}`, divAuthor);
         })
     })
+
+    //node list of div.tab which contain the article titles
+    const divTabNodeList = document.querySelectorAll("div.tab");
+    divTabNodeList.forEach( tabTopic => {
+        tabTopic.addEventListener("click", (event) => {
+            const allCards = document.querySelectorAll("div.card");
+            if (event.target.textContent != "All") {
+                //unreveal all cards
+                allCards.forEach( card => card.style.display = "none");
+
+                //for node.js
+                let articleName = event.target.textContent;
+                articleName === "node.js" ? articleName = "node" : false; //only one that is changed
+
+                //reveals cards for specific topic
+                const wantedCards = document.querySelectorAll(`.${articleName}`);
+                console.log(wantedCards);
+                wantedCards.forEach( card => card.style.display = "");
+            } else {
+                allCards.forEach(card => card.style.display = "");
+            }
+    })      
             })
     })

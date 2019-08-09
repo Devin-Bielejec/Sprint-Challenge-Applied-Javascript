@@ -24,8 +24,8 @@ axios.get("https://lambda-times-backend.herokuapp.com/articles")
     const articleData = response.data.articles;
 
     const articleNames = Object.keys(articleData);
-    //make all of the divcards and have them on the container
-    //There are multiple headlines
+    
+    //All cards in card container are created but not shown
     articleNames.forEach( articleName => {
         articleData[articleName].forEach( article => {
             const divCard = createElement("div", "card", "", document.querySelector(".cards-container"));
@@ -40,24 +40,25 @@ axios.get("https://lambda-times-backend.herokuapp.com/articles")
         })
     })
 
-    //node list of div.tab which contain the article titles
+    //Selecting all tabs, which contain article names
     const divTabNodeList = document.querySelectorAll("div.tab");
     divTabNodeList.forEach( tabTopic => {
         tabTopic.addEventListener("click", (event) => {
             const allCards = document.querySelectorAll("div.card");
             if (event.target.textContent != "All") {
-                //unreveal all cards
+                //Hide all current cards
                 allCards.forEach( card => card.style.display = "none");
 
-                //for node.js
+                //for node.js - name does not match
                 let articleName = event.target.textContent;
                 articleName === "node.js" ? articleName = "node" : false; //only one that is changed
 
-                //reveals cards for specific topic
+                //Reveals cards for chosen topic
                 const wantedCards = document.querySelectorAll(`.${articleName}`);
                 console.log(wantedCards);
                 wantedCards.forEach( card => card.style.display = "");
             } else {
+                //All cards are displayed
                 allCards.forEach(card => card.style.display = "");
             }
     })      

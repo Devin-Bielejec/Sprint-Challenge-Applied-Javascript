@@ -9,7 +9,7 @@
 //  </div >
 // And add it to the DOM in the .headerContainer component
 function createElement(element, className, content, parent){
-    item = document.createElement(element);
+    const item = document.createElement(element);
     className != "" ? item.classList.add(className) : false;
     content != "" ? item.textContent = content : false;
     parent != "" ? parent.appendChild(item): false;
@@ -27,3 +27,5 @@ function Header() {
 
 const headerContainer = document.querySelector(".header-container");
 headerContainer.appendChild(Header());
+
+export {createElement};

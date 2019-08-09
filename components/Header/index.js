@@ -16,7 +16,6 @@ function createElement(element, className, content, parent){
     return item;
 }
 
-
 function Header() {
     const divHeader = createElement("div", "header", "", "");
     const spanDate = createElement("span", "date", "MARCH 28, 2019", divHeader);

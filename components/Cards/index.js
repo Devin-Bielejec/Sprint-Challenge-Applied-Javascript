@@ -22,22 +22,28 @@ import {createElement} from "../Header/index.js";
 axios.get("https://lambda-times-backend.herokuapp.com/articles")
 .then( response => {
     const articleData = response.data.articles;
-    console.log(articleData);
     const articleNames = Object.keys(response.data.articles);
-    console.log(articleNames);
 
     articleNames.forEach( articleName => {
         const headlineArray = articleData[articleName];
         
-        //There are multiple headlines
-        headlineArray.forEach( article => {
-            const divCard = createElement("div", "card", "", document.querySelector(".cards-container"));
-            const divHeadline = createElement("div", "headline", article.headline, divCard);
-            const divAuthor = createElement("div", "author", "", divCard);
-            const divImgContainer = createElement("div", "img-container", "", divAuthor);
-            const img = createElement("img", "", "", divImgContainer);
-            img.src = article.authorPhoto;
-            const span = createElement("span", "", `By ${article.authorName}`, divAuthor);
+        const divTabNodeList = document.querySelectorAll("div.tab");
+        
+        divTabNodeList.forEach( tabList => {
+            tabList.addEventListener("click", (event) => {
+                console.log(event);
+                console.log(headlineArray);
+                //There are multiple headlines
+                headlineArray.forEach( article => {
+                    const divCard = createElement("div", "card", "", document.querySelector(".cards-container"));
+                    const divHeadline = createElement("div", "headline", article.headline, divCard);
+                    const divAuthor = createElement("div", "author", "", divCard);
+                    const divImgContainer = createElement("div", "img-container", "", divAuthor);
+                    const img = createElement("img", "", "", divImgContainer);
+                    img.src = article.authorPhoto;
+                    const span = createElement("span", "", `By ${article.authorName}`, divAuthor);
         })
     })
-})
+            })
+        })
+    })

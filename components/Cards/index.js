@@ -1,3 +1,4 @@
+import {createElement} from "../Header/index.js";
 // STEP 3: Create Article cards.
 // -----------------------
 // Send an HTTP GET request to the following address: https://lambda-times-backend.herokuapp.com/articles
@@ -17,3 +18,26 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+axios.get("https://lambda-times-backend.herokuapp.com/articles")
+.then( response => {
+    const articleData = response.data.articles;
+    console.log(articleData);
+    const articleNames = Object.keys(response.data.articles);
+    console.log(articleNames);
+
+    articleNames.forEach( articleName => {
+        const headlineArray = articleData[articleName];
+        
+        //There are multiple headlines
+        headlineArray.forEach( article => {
+            const divCard = createElement("div", "card", "", document.querySelector(".cards-container"));
+            const divHeadline = createElement("div", "headline", article.headline, divCard);
+            const divAuthor = createElement("div", "author", "", divCard);
+            const divImgContainer = createElement("div", "img-container", "", divAuthor);
+            const img = createElement("img", "", "", divImgContainer);
+            img.src = article.authorPhoto;
+            const span = createElement("span", "", `By ${article.authorName}`, divAuthor);
+        })
+    })
+})

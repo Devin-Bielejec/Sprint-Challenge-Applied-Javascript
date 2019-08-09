@@ -11,9 +11,7 @@ import {createElement} from "../Header/index.js";
 console.log("hi");
 
 axios.get("https://lambda-times-backend.herokuapp.com/topics").then( response => {
-    console.log(response);
     const topics = response.data.topics;
-    console.log(topics);
     topics.forEach( topic => {
         createElement("div", "tab", topic, document.querySelector("div.topics"));
     })
